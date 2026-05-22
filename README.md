@@ -1,29 +1,80 @@
-### Start Up
+# Neural Network and Deep Learning — PJ1
 
-First look into the `dataset_explore.ipynb` and get familiar with the data.
+> Course: 神经网络与深度学习 (Neural Network and Deep Learning)
+> Project 1: MNIST digit recognition with a NumPy-only neural network framework
+> Author: 严瑞琪 (22300680293)
 
-### Codes need your implementation
+This repository contains the code and report for **PJ1**: building an MLP / CNN
+framework from scratch in NumPy and training it on MNIST.
 
-1. `op.py` 
-   Implement the forward and backward function of `class Linear`
-   Implement the `MultiCrossEntropyLoss`. Note that the `Softmax` layer could be included in the `MultiCrossEntropyLoss`.
-   Try to implement `conv2D`, do not worry about the efficiency.
-   You're welcome to implement other complicated layer (e.g.  ResNet Block or Bottleneck)
-2. `models.py` You may freely edit or write your own model structure.
-3. `mynn/lr_scheduler.py` You may implement different learning rate scheduler in it.
-4. `MomentGD` in `optimizer.py`
-5. Modifications in `runner.py` if needed when your model structure is slightly different from the given example.
+- Final MLP `[784, 512, 256, 10]` — **test 98.81%** (AdamW + warmup-cosine + dropout 0.2 + WD 1e-4 + light aug)
+- Final CNN `Conv8 → Conv16 → FC128 → 10` — **test 98.79%** (AdamW + cosine + dropout 0.2 + WD 1e-4)
+- Baseline MLP `[784, 600, 10]` — test 93.86% (SGD + MultiStepLR)
 
+## Trained model weights
 
-### Train the model.
+The trained model checkpoints (`baseline_mlp.pickle`, `final_mlp.pickle`,
+`final_cnn.pickle`) and all per-experiment best models are hosted on
+ModelScope:
 
-Open test_train.py, modify parameters and run it.
+**https://www.modelscope.cn/models/RuiXueChuJi/NN-DL-HW2/summary**
 
-If you want to train the model on your own dataset, just change the values of variable *train_images_path* and *train_labels_path*
+Per the assignment instructions, the dataset and model weights are **not**
+included in this repository.
 
-### Test the model.
+## Repository layout
 
-Open test_model.py, specify the saved model's path and the test dataset's path, then run the script, the script will output the accuracy on the test dataset.
+```
+HW2_22300680293/
+├── WORKFLOW.md                       # progress tracker
+├── PJ1/
+│   ├── project_1.pdf                 # assignment handout
+│   └── codes/
+│       ├── README.md                 # original course README
+│       ├── mynn/                     # the NumPy framework
+│       │   ├── op.py                 # Linear, conv2D, MaxPool, Flatten, Dropout, BN, activations, loss
+│       │   ├── optimizer.py          # SGD / MomentGD / Adam / AdamW
+│       │   ├── lr_scheduler.py       # Step / MultiStep / Exp / Cosine / LinearWarmup
+│       │   ├── models.py             # Model_MLP, Model_CNN
+│       │   ├── runner.py             # training loop with epoch eval + augmentation hook
+│       │   └── metric.py
+│       ├── experiments/              # all ablations + final-model training
+│       ├── draw_tools/               # plotting helpers
+│       ├── test_train.py             # quick training entry point
+│       ├── test_model.py             # evaluate any saved checkpoint
+│       ├── weight_visualization.py   # MLP / CNN visualizers
+│       ├── hyperparameter_search.py
+│       └── dataset_explore.ipynb
+└── report/
+    ├── REPORT.md                     # the project report (read this!)
+    ├── REPORT.html
+    └── images/                       # all figures referenced by the report
+```
 
+## How to reproduce
 
+Download the MNIST dataset into `PJ1/codes/dataset/MNIST/` (see
+`dataset_explore.ipynb`), then download the model weights from the
+ModelScope link above into `PJ1/codes/saved_models/`.
 
+```powershell
+# from PJ1/codes/
+
+# train baseline + final MLP + final CNN
+python experiments/train_final.py --tag baseline_mlp
+python experiments/train_final.py --tag final_mlp
+python experiments/train_final.py --tag final_cnn
+
+# evaluate
+python test_model.py --model saved_models/final_mlp.pickle --kind mlp
+python test_model.py --model saved_models/final_cnn.pickle --kind cnn
+
+# run every ablation (D1 + D2)
+python experiments/run_all.py
+
+# rebuild every figure
+python experiments/make_figs.py
+```
+
+See [report/REPORT.md](report/REPORT.md) for the full write-up, results
+tables, and visualizations.

@@ -1,0 +1,34 @@
+| Run | Epochs | Best val | Test acc |
+|---|---|---|---|
+| `final_mlp` | 10 | 98.34% | 98.81% |
+| `final_cnn` | 4 | 98.49% | 98.79% |
+| `d2_aug_combined` | 6 | 97.85% | 98.13% |
+| `d2_dropout_0.2` | 6 | 97.76% | 98.10% |
+| `d1_init_xavier` | 6 | 97.78% | 98.09% |
+| `d2_aug_shift` | 6 | 97.61% | 98.03% |
+| `d2_aug_rotate` | 6 | 97.67% | 98.01% |
+| `d1_init_normal` | 6 | 97.61% | 98.00% |
+| `d2_dropout_0.3` | 6 | 97.64% | 97.90% |
+| `d1_optimizer_momentum` | 6 | 97.53% | 97.85% |
+| `d1_init_he` | 6 | 97.77% | 97.83% |
+| `d2_dropout_0.0` | 6 | 97.77% | 97.83% |
+| `d1_scheduler_cosine` | 6 | 97.39% | 97.82% |
+| `d2_aug_noise` | 6 | 97.58% | 97.82% |
+| `d2_wd_1e-05` | 6 | 97.49% | 97.78% |
+| `d1_optimizer_adam` | 6 | 97.51% | 97.75% |
+| `d1_optimizer_adamw` | 6 | 97.51% | 97.75% |
+| `d1_scheduler_constant` | 6 | 97.51% | 97.75% |
+| `d2_aug_none` | 6 | 97.51% | 97.75% |
+| `d2_wd_0.0` | 6 | 97.51% | 97.75% |
+| `d1_scheduler_multistep` | 6 | 97.46% | 97.71% |
+| `d1_scheduler_warmup_cosine` | 6 | 97.39% | 97.69% |
+| `d2_dropout_0.5` | 6 | 97.38% | 97.68% |
+| `d2_dropout_0.1` | 6 | 97.75% | 97.63% |
+| `d1_optimizer_nesterov` | 6 | 97.44% | 97.62% |
+| `d1_scheduler_step` | 6 | 97.23% | 97.59% |
+| `d2_wd_0.0001` | 6 | 97.49% | 97.58% |
+| `d2_wd_0.001` | 6 | 96.92% | 97.13% |
+| `d1_scheduler_exp` | 6 | 96.41% | 96.66% |
+| `d1_optimizer_sgd` | 6 | 94.22% | 94.71% |
+| `baseline_mlp` | 6 | 93.43% | 93.86% |
+| `d2_wd_0.01` | 6 | 93.12% | 93.54% |
