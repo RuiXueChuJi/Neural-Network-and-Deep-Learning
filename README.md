@@ -1,4 +1,5 @@
-# Neural Network and Deep Learning — PJ1
+# Neural Network and Deep Learning — PJ1 & PJ2
+PJ1文件夹之外的所有data models reports等内容都是PJ2的
 
 > Course: 神经网络与深度学习 (Neural Network and Deep Learning)
 > Project 1: MNIST digit recognition with a NumPy-only neural network framework
